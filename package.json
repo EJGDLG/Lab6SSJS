@@ -1,0 +1,29 @@
+{
+  "name": "lab6_blog",
+  "description": "blog",
+  "main": "node ./src/main.js|",
+  "scripts": {
+    "start": "node ./src/main.js",
+    "lint": "eslint src/*.js"
+  },
+  "repository": {
+    "type": "git" 
+  },
+  "author": "Edwin de Leon",
+  "license": "ISC",
+  "bugs": {
+    
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "mysql2": "^3.9.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1"
+  }
+}
