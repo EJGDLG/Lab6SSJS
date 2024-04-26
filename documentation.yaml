@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: API Blog GuateMalaDepot
+  description: Blog GuateMalaDepot se comparte informacion de distintos cantantes, personalidades, y politicos de la fauna de internet en Guatemala. Esta api se encarga de enviar toda la informacion de este blog. Ojo antes debe de ejecutar el codigo con npm start
+  version: 1.0.0
+servers:
+- url:  http://127.0.0.1:3000/posts
+tags:
+- name: Posts
+  description: Estos endpoint maneja toda la informacion relacionada a los posts del blog.
+paths:
+  /:
+    post:
+      tags:
+      - Posts
+      summary: Inserta un nuevo post en el blog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      responses:
+        200:
+          description: La ejecucion del metodo fue exitosa
+        500:
+          description: Un problema contactando con la base de datos o un error de código
+        501:
+          description: Utilizar un metodo no implementado de http
+        400:
+          $ref: '#/components/responses/BadRequest'
+    get:
+      tags:
+      - Posts
+      summary: Obtener todos los post
+      responses:
+        200:
+          description: La ejecucion del metodo fue exitosa
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        500:
+          description: Un problema contactando con la base de datos o un error de código
+        501:
+          description: Utilizar un metodo no implementado de http
+          
+  /{postId}:
+    get:
+      tags:
+      - Posts
+      summary: Obtiene un post de toda la base de datos.
+      parameters:
+      - name: postId 
+        in: path
+        description: Identificador del post a obtener
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: La ejecucion del metodo fue exitosa
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        500:
+          description: Un problema contactando con la base de datos o un error de código
+        501:
+          description: Utilizar un metodo no implementado de http
+    delete:
+      tags:
+      - Posts
+      summary: Elimina un post en especifico
+      parameters:
+      - name: postId
+        in: path
+        description: Identificador del post a eliminar
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: La ejecucion del metodo fue exitosa
+        500:
+          description: Un problema contactando con la base de datos o un error de código
+        501:
+          description: Utilizar un metodo no implementado de http
+    put:
+      tags:
+      - Posts
+      summary: Modifica un post en especifico
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutPost'
+        required: true
+      parameters:
+      - name: postId
+        in: path
+        description: Identificador del post a modificar
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: La ejecucion del metodo fue exitosa
+        500:
+          description: Un problema contactando con la base de datos o un error de código
+        501:
+          description: Utilizar un metodo no implementado de http
+        400:
+          $ref: '#/components/responses/BadRequest'
+      
+components:
+  responses:
+    BadRequest:
+      description: Se mandaron datos con el formato incorrecto en el body.
+  schemas:
+    Post:
+      type: object
+      properties:
+        Pearson:
+          type: string
+          description: Nombre de la persona del post
+        Few_Description:
+          type: string
+          description: Breve descripcion de la persona. Como historia, origen, etc.
+        History:
+          type: string
+          description: Breve historia de la persona como sus origenes. Como comenzo su carrera y donde estudio
+        Crucial_Events:
+          type: string
+          description: Eventos cruciales en su vida, cosas que lo cambiaron, etc.
+        Curiosities:
+          type: string
+          description: Curiosidades del apersona
+        AlternativeText:
+          type: string
+          description: Titulo alternativo
+        AlternativeDescription:
+          type: string
+          description: Descripcion alternativa
+        Text_References:
+          type: string
+          description: referencias
+        images:
+          type: string
+          description: imagenes en formato base64
+    PutPost:
+      type: object
+      properties:
+        columna:
+          type: string
+          description: Columna a la que se le desea modificar un valor.
+        valor:
+          type: string
+          description: valor que se desea modificar.
